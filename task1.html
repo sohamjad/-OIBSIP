@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://via.placeholder.com/1920x1080'); /* Use any URL here */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .calculator {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            width: 350px;  /* Increased size */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .display input {
+            width: 100%;
+            padding: 20px;
+            font-size: 2rem;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: right;
+            background-color: #f0f4f8;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #d8e6f3;
+        }
+
+        .equal {
+            grid-column: span 2;
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .equal:hover {
+            background-color: #3a78c2;
+        }
+
+        .extra {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .extra:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="result" disabled>
+        </div>
+        <div class="buttons">
+            <button onclick="clearScreen()">C</button>
+            <button onclick="deleteChar()">del</button>
+            <button onclick="insert('%')">%</button>
+            <button onclick="insert('(')">(</button>
+            <button onclick="insert(')')">)</button>
+            <button onclick="insert('/')">÷</button>
+            <button onclick="insert('7')">7</button>
+            <button onclick="insert('8')">8</button>
+            <button onclick="insert('9')">9</button>
+            <button onclick="insert('*')">x</button>
+            <button onclick="insert('4')">4</button>
+            <button onclick="insert('5')">5</button>
+            <button onclick="insert('6')">6</button>
+            <button onclick="insert('-')">−</button>
+            <button onclick="insert('1')">1</button>
+            <button onclick="insert('2')">2</button>
+            <button onclick="insert('3')">3</button>
+            <button onclick="insert('+')">+</button>
+            <button onclick="insert('0')">0</button>
+            <button onclick="insert('.')">.</button>
+            <button class="equal" onclick="calculate()">=</button>
+            <!-- Additional functions -->
+            <button class="extra" onclick="sqrt()">√</button>
+            <button class="extra" onclick="power()">x²</button>
+            <button class="extra" onclick="factorial()">n!</button>
+        </div>
+    </div>
+
+    <script>
+        // Insert number or operator into the display
+        function insert(num) {
+            document.getElementById('result').value += num;
+        }
+
+        // Clear the display
+        function clearScreen() {
+            document.getElementById('result').value = "";
+        }
+
+        // Delete the last character
+        function deleteChar() {
+            let display = document.getElementById('result').value;
+            document.getElementById('result').value = display.slice(0, -1);
+        }
+
+        // Calculate the result
+        function calculate() {
+            try {
+                let result = eval(document.getElementById('result').value);
+                document.getElementById('result').value = result;
+            } catch (error) {
+                document.getElementById('result').value = "Error";
+            }
+        }
+
+        // Additional Functions
+        function sqrt() {
+            try {
+                let value = eval(document.getElementById('result').value);
+                document.getElementById('result').value = Math.sqrt(value);
+            } catch (error) {
+                document.getElementById('result').value = "Error";
+            }
+        }
+
+        function power() {
+            try {
+                let value = eval(document.getElementById('result').value);
+                document.getElementById('result').value = Math.pow(value, 2);
+            } catch (error) {
+                document.getElementById('result').value = "Error";
+            }
+        }
+
+        function factorial() {
+            try {
+                let value = eval(document.getElementById('result').value);
+                let fact = 1;
+                for (let i = 1; i <= value; i++) {
+                    fact *= i;
+                }
+                document.getElementById('result').value = fact;
+            } catch (error) {
+                document.getElementById('result').value = "Error";
+            }
+        }
+    </script>
+
+</body>
+</html>
